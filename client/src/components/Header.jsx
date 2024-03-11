@@ -3,8 +3,11 @@ import { CiSearch } from 'react-icons/ci'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { FaUserLarge } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
+import { useContext } from 'react'
+import { UserContext } from './UserContext'
 
 const Header = () => {
+  const { user } = useContext(UserContext)
   return (
     <header className='flex items-center justify-between'>
       <Link to='/' className='inline-flex items-center gap-1'>
@@ -22,13 +25,14 @@ const Header = () => {
         </button>
       </div>
       <Link
-        to='/login'
+        to={user ? '/account' : '/login'}
         className='flex border gap-2 border-gray-300 rounded-full py-2 px-4 items-center'
       >
         <RxHamburgerMenu />
         <div className='bg-gray-500 text-white rounded-full border border-gray-500 p-[2px]'>
           <FaUserLarge className='relative top-[3px]' />
         </div>
+        {!!user && <div>{user.name}</div>}
       </Link>
     </header>
   )
