@@ -11,7 +11,7 @@ const LoginPage = () => {
           <button className='primary'>Login</button>
           <div className='text-center flex items-center justify-center gap-2 py-2 text-gray-500'>
             Don`t have an account?
-            <Link to='/register' className='underline text-black'>
+            <Link to='/register' className='underline text-black font-[600]'>
               Register now
             </Link>
           </div>
