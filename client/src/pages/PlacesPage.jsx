@@ -54,12 +54,27 @@ const PlacesPage = () => {
               'Title',
               'Title for your place. should be short and catchy as in advertisement'
             )}
-            <input type='text' placeholder='title eg. My lovely apart.' />
+            <input
+              type='text'
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder='title eg. My lovely apart.'
+            />
             {preInput('Address', 'Address to your place')}
-            <input type='text' placeholder='address' />
+            <input
+              type='text'
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder='address'
+            />
             {preInput('Photos', 'more, better.')}
             <div className='flex gap-2'>
-              <input type='text' placeholder={'Add using a link ....jpg'} />
+              <input
+                type='text'
+                value={photoLink}
+                onChange={(e) => setPhotoLink(e.target.value)}
+                placeholder={'Add using a link ....jpg'}
+              />
               <button className='bg-gray-200 px-4 rounded-2xl'>
                 Add&nbsp;photo
               </button>
@@ -73,17 +88,23 @@ const PlacesPage = () => {
               </button>
             </div>
             {preInput('Description', 'description of the place')}
-            <textarea />
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
             {preInput('Perks', 'select all the perks of your place')}
             <div
               className='grid mt-3 gap-2 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 
    lg:grid-cols-6'
             >
-              <Perks />
+              <Perks selected={perks} onChange={setPerks} />
             </div>
 
             {preInput('Extra info', 'what house rules, etc.')}
-            <textarea></textarea>
+            <textarea
+              value={extraInfo}
+              onChange={(e) => setExtraInfo(e.target.value)}
+            />
             {preInput(
               'Check in&out times, max guests',
               '  add check in and out times, remember to have time window for cleaning the room between guests'
@@ -92,15 +113,29 @@ const PlacesPage = () => {
             <div className='grid gap-2 sm:grid-cols-3'>
               <div>
                 <h3 className='mt-2 -mb-1'>Check in time</h3>
-                <input type='text' placeholder='14:00' />
+                <input
+                  type='text'
+                  value={checkIn}
+                  onChange={(e) => setCheckIn(e.target.value)}
+                  placeholder='14:00'
+                />
               </div>
               <div>
                 <h3 className='mt-2 -mb-1'>Check out time</h3>
-                <input type='text' />
+                <input
+                  type='text'
+                  value={checkOut}
+                  onChange={(e) => setCheckOut(e.target.value)}
+                  placeholder='11:00'
+                />
               </div>
               <div>
                 <h3 className='mt-2 -mb-1'>Max number of guests</h3>
-                <input type='text' />
+                <input
+                  type='number'
+                  value={maxGuests}
+                  onChange={(e) => setMaxGuests(e.target.value)}
+                />
               </div>
             </div>
             <button className='primary my-4'>Save</button>

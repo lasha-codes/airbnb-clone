@@ -4,7 +4,7 @@ import { PiTelevisionSimpleLight } from 'react-icons/pi'
 import { GiCryptEntrance } from 'react-icons/gi'
 import { GiPocketRadio } from 'react-icons/gi'
 
-const Perks = () => {
+const Perks = ({ selected, onChange }) => {
   return (
     <>
       <label
