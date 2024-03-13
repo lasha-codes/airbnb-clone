@@ -6,9 +6,11 @@ import { FaCar, FaCat } from 'react-icons/fa'
 import { PiTelevisionSimpleLight } from 'react-icons/pi'
 import { GiCryptEntrance } from 'react-icons/gi'
 import { GiPocketRadio } from 'react-icons/gi'
+import { useState } from 'react'
 
 const PlacesPage = () => {
   const { action } = useParams()
+  const [title, setTitle] = useState('')
   return (
     <div>
       {action !== 'new' && (
@@ -121,3 +123,5 @@ const PlacesPage = () => {
 }
 
 export default PlacesPage
+
+// stopLine - 2:42:38
