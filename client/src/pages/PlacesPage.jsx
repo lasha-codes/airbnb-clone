@@ -46,6 +46,26 @@ const PlacesPage = () => {
     setPhotoLink('')
   }
 
+  const uploadPhoto = (e) => {
+    const files = e.target.files
+    const data = new FormData()
+
+    for (let i = 0; i < files.length; i++) {
+      data.append('photos', files[i])
+    }
+
+    axios
+      .post('/upload', data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then((response) => {
+        const { data: filenames } = response
+        setAddedPhotos((prev) => {
+          return [...prev, ...filenames]
+        })
+      })
+  }
+
   return (
     <div>
       {action !== 'new' && (
@@ -94,6 +114,13 @@ const PlacesPage = () => {
                 Add&nbsp;photo
               </button>
             </div>
+            <input
+              type='file'
+              multiple
+              className='hidden'
+              id='file-upload'
+              onChange={uploadPhoto}
+            />
             <div className='mt-2 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
               {addedPhotos.length > 0 &&
                 addedPhotos.map((link, idx) => (
@@ -104,12 +131,15 @@ const PlacesPage = () => {
                     />
                   </div>
                 ))}
-              <button className='flex gap-1 justify-center items-center  border bg-transparent rounded-2xl p-8 text-2xl text-gray-600'>
+              <label
+                htmlFor='file-upload'
+                className='flex gap-1 justify-center items-center  border bg-transparent rounded-2xl p-8 text-2xl text-gray-600 cursor-pointer'
+              >
                 <div className='text-3xl'>
                   <HiOutlineCloudUpload />
                 </div>
                 Upload
-              </button>
+              </label>
             </div>
             {preInput('Description', 'description of the place')}
             <textarea
