@@ -33,6 +33,8 @@ const PhotosUploader = ({ addedPhotos, onChange }) => {
       })
   }
 
+  console.log(addedPhotos)
+
   return (
     <>
       <div className='flex gap-2'>
