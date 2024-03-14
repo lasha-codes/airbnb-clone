@@ -1,10 +1,12 @@
 import axios from 'axios'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import PhotosUploader from './PhotosUploader'
 import Perks from './Perks'
 import AccountNav from './AccountNav'
 const PlaceFormPage = () => {
+  const { id } = useParams()
+  console.log(id)
   const [title, setTitle] = useState('')
   const [address, setAddress] = useState('')
   const [addedPhotos, setAddedPhotos] = useState([])
@@ -15,6 +17,23 @@ const PlaceFormPage = () => {
   const [checkOut, setCheckOut] = useState('')
   const [maxGuests, setMaxGuests] = useState(1)
   const navigate = useNavigate()
+  useEffect(() => {
+    if (!id) {
+      return
+    }
+    axios.get('/places/' + id).then((response) => {
+      const { data } = response
+      setTitle(data.title)
+      setAddress(data.address)
+      setAddedPhotos(data.addedPhotos)
+      setDescription(data.description)
+      setPerks(data.perks)
+      setExtraInfo(data.extraInfo)
+      setCheckIn(data.checkIn)
+      setCheckOut(data.checkOut)
+      setMaxGuests(data.maxGuests)
+    })
+  })
 
   const inputHeader = (text) => {
     return <h2 className='text-2xl mt-4'>{text}</h2>

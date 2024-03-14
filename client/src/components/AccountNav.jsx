@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom'
 const AccountNav = () => {
   const { pathname } = useLocation()
   let mainPath = pathname
-  if (mainPath === '/account/places/new') {
+  if (mainPath.includes('/account/places')) {
     mainPath = '/account/places'
   }
   const linkClasses = (type = null) => {
