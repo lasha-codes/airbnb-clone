@@ -6,7 +6,6 @@ import Perks from './Perks'
 import AccountNav from './AccountNav'
 const PlaceFormPage = () => {
   const { id } = useParams()
-  console.log(id)
   const [title, setTitle] = useState('')
   const [address, setAddress] = useState('')
   const [addedPhotos, setAddedPhotos] = useState([])
@@ -33,7 +32,7 @@ const PlaceFormPage = () => {
       setCheckOut(data.checkOut)
       setMaxGuests(data.maxGuests)
     })
-  })
+  }, [id])
 
   const inputHeader = (text) => {
     return <h2 className='text-2xl mt-4'>{text}</h2>
@@ -50,9 +49,9 @@ const PlaceFormPage = () => {
     )
   }
 
-  const addNewPlace = async (e) => {
+  const savePlace = async (e) => {
     e.preventDefault()
-    await axios.post('places', {
+    const placeData = {
       title,
       address,
       addedPhotos,
@@ -62,14 +61,22 @@ const PlaceFormPage = () => {
       checkIn,
       checkOut,
       maxGuests,
-    })
-    navigate('/account/places')
+    }
+    if (id) {
+      await axios.put('/places', {
+        id,
+        ...placeData,
+      })
+    } else {
+      await axios.post('/places', placeData)
+      navigate('/account/places')
+    }
   }
 
   return (
     <div>
       <AccountNav />
-      <form onSubmit={addNewPlace}>
+      <form onSubmit={savePlace}>
         {preInput(
           'Title',
           'Title for your place. should be short and catchy as in advertisement'

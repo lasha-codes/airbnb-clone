@@ -155,4 +155,43 @@ app.get('/places/:id', async (req, res) => {
   res.json(placeDoc)
 })
 
+app.put('/places', async (req, res) => {
+  const { token } = req.cookies
+  const {
+    id,
+    title,
+    address,
+    addedPhotos,
+    description,
+    perks,
+    extraInfo,
+    checkIn,
+    checkOut,
+    maxGuests,
+  } = req.body
+  try {
+    jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
+      if (err) throw err
+
+      if (userData) {
+        const placeDoc = await Place.findByIdAndUpdate(id, {
+          title,
+          address,
+          addedPhotos,
+          description,
+          perks,
+          extraInfo,
+          checkIn,
+          checkOut,
+          maxGuests,
+        })
+        return res.json(placeDoc)
+      }
+      res.status(400).json({ message: 'Bad request' })
+    })
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' })
+  }
+})
+
 app.listen(4000)
